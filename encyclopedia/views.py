@@ -1,8 +1,11 @@
 """ Contains views for encylopedia app """
 
+import random
+
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
+from markdown2 import markdown
 
 from . import util
 
@@ -35,7 +38,7 @@ def entry(request, title):
         raise Http404
     return render(request, "encyclopedia/entry.html", {
         "title": title,
-        "entry": entry_content
+        "entry": markdown(entry_content)
     })
 
 
@@ -54,12 +57,22 @@ def create(request):
 def edit(request, title):
     if request.method == "POST":
         data = request.POST
-        title = data.get("title")
         content = data.get("content")
+        util.save_entry(title, content)
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
 
     content = util.get_entry(title)
-    return render(request, "encyclopedia/edit", {
+    return render(request, "encyclopedia/edit.html", {
         "title": title,
         "content": content
     })
+
+
+def randompage(request):
+    try:
+        title = random.choice(util.list_entries())
+        return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
+    except IndexError:
+        return render(request, "encyclopedia/error.html", {
+            "error": "No page exists!"
+        })
