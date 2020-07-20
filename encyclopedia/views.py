@@ -11,7 +11,7 @@ from . import util
 
 
 def index(request):
-    """ default route """
+    """ Main route """
     if request.method == "POST":
         form_data = request.POST
         query = form_data.get("q")
@@ -32,7 +32,7 @@ def index(request):
 
 
 def entry(request, title):
-    """ NIL """
+    """ Displays the requested entry """
     entry_content = util.get_entry(title)
     if entry_content is None:
         raise Http404
@@ -43,6 +43,7 @@ def entry(request, title):
 
 
 def create(request):
+    """ Creates the entry """
     if request.method == "POST":
         data = request.POST
         title = data.get("title")
@@ -55,6 +56,7 @@ def create(request):
 
 
 def edit(request, title):
+    """ Edits the entry """
     if request.method == "POST":
         data = request.POST
         content = data.get("content")
@@ -69,6 +71,7 @@ def edit(request, title):
 
 
 def randompage(request):
+    """ Renders random page from entries """
     try:
         title = random.choice(util.list_entries())
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
