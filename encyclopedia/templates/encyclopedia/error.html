@@ -1,1 +1,9 @@
-<h1>{{error}}</h1>
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Error
+{% endblock %}
+
+{% block body %}
+<h1>{{error | safe}}</h1>
+{% endblock %}
