@@ -6,9 +6,8 @@ Edit: {{title}}
 
 {% block body %}
 <h1>{{title}}</h1>
-<form action="{% url 'encyclopedia:create' %}" method="POST">
+<form action="{% url 'encyclopedia:edit' title %}" method="POST">
     {% csrf_token %}
-    <input name="title" type="hidden" value={{title}}>
     <textarea name="content" placeholder="Write content...">{{content}}</textarea>
     <input name="update" type="submit" value="Update">
 </form>
