@@ -37,3 +37,29 @@ def entry(request, title):
         "title": title,
         "entry": entry_content
     })
+
+
+def create(request):
+    if request.method == "POST":
+        data = request.POST
+        title = data.get("title")
+        if title in util.list_entries():
+            return "already exists"
+        content = data.get("content")
+        util.save_entry(title, content)
+        return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
+    return render(request, "encyclopedia/create.html")
+
+
+def edit(request, title):
+    if request.method == "POST":
+        data = request.POST
+        title = data.get("title")
+        content = data.get("content")
+        return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
+
+    content = util.get_entry(title)
+    return render(request, "encyclopedia/edit", {
+        "title": title,
+        "content": content
+    })
