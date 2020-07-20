@@ -3,7 +3,7 @@
 import random
 
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 from markdown2 import markdown
 
@@ -48,7 +48,9 @@ def create(request):
         data = request.POST
         title = data.get("title")
         if title in util.list_entries():
-            return "already exists"
+            return render(request, "encyclopedia/error.html", {
+                "error": "Entry already exists!"
+            })
         content = data.get("content")
         util.save_entry(title, content)
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
@@ -73,9 +75,16 @@ def edit(request, title):
 def randompage(request):
     """ Renders random page from entries """
     try:
+        raise IndexError
         title = random.choice(util.list_entries())
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
     except IndexError:
         return render(request, "encyclopedia/error.html", {
-            "error": "No page exists!"
+            "error": markdown(f"No page exists!\n[Create]({reverse('encyclopedia:create')})")
         })
+
+
+def handler404(request, exception):
+    return HttpResponseNotFound(render(request, "encyclopedia/error.html", {
+        "error": "Page not found"
+    }))
