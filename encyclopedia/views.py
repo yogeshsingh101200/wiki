@@ -75,7 +75,6 @@ def edit(request, title):
 def randompage(request):
     """ Renders random page from entries """
     try:
-        raise IndexError
         title = random.choice(util.list_entries())
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
     except IndexError:
@@ -85,6 +84,8 @@ def randompage(request):
 
 
 def handler404(request, exception):
+    """ Handles page not found error """
+    print(exception)
     return HttpResponseNotFound(render(request, "encyclopedia/error.html", {
         "error": "Page not found"
     }))
