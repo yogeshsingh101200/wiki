@@ -23,11 +23,10 @@ def index(request):
             if query in a_entry.lower():
                 similar.append(a_entry)
 
-        if len(similar) != 0:
-            return render(request, "encyclopedia/index.html", {
-                "tag": "Matching Results",
-                "entries": similar
-            })
+        return render(request, "encyclopedia/index.html", {
+            "tag": "Matching Results",
+            "entries": similar
+        })
 
     return render(request, "encyclopedia/index.html", {
         "tag": "All Pages",

@@ -19,6 +19,8 @@ Encyclopedia
                 <li class="nav-item">
                     <a href="{% url 'encyclopedia:entry' entry %}" class="nav-link">{{entry}}</a>
                 </li>
+                {% empty %}
+                <h5 class="text-muted">No match found!</h5>
                 {% endfor%}
             </ul>
         </div>
