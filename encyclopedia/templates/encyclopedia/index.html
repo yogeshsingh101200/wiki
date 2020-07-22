@@ -5,12 +5,23 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
-<h1>All Pages</h1>
-
-<ul>
-    {% for entry in entries %}
-    <li><a href="{% url 'encyclopedia:entry' entry %}">{{entry}}</a></li>
-    {% endfor %}
-</ul>
-
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>All Pages</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-2">
+            <ul class="nav flex-column">
+                {% for entry in entries %}
+                <li class="nav-item">
+                    <a href="{% url 'encyclopedia:entry' entry %}" class="nav-link">{{entry}}</a>
+                </li>
+                {% endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -5,5 +5,7 @@ Error
 {% endblock %}
 
 {% block body %}
-<h1>{{error | safe}}</h1>
+<div class="alert alert-danger" role="alert">
+    <h3>{{error | safe}}</h3>
+</div>
 {% endblock %}

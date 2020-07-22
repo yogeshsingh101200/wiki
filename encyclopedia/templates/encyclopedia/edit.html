@@ -5,10 +5,28 @@ Edit: {{title}}
 {% endblock %}
 
 {% block body %}
-<h1>{{title}}</h1>
-<form action="{% url 'encyclopedia:edit' title %}" method="POST">
-    {% csrf_token %}
-    <textarea name="content" placeholder="Write content...">{{content}}</textarea>
-    <input name="update" type="submit" value="Update">
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Edit page</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'encyclopedia:edit' title%}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="readonlyTitle">Title</label>
+                    <input value="{{title}}" type="text" name="title" id="readonlyTitle" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="title">Edit content of the page in markdown format</label>
+                    <textarea id="content" name="content" class="form-control" rows="15" required>{{content}}</textarea>
+                </div>
+                <button name="update" type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

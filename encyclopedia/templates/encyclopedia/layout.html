@@ -1,42 +1,49 @@
 {% load static %}
-
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap 4.5.0 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- CSS -->
     <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body>
-    <div class="row">
-        <div class="sidebar col-lg-2 col-md-3">
-            <h2>Wiki</h2>
-            <form action="{% url 'encyclopedia:index' %}" method="POST">
-                {% csrf_token %}
-                <input class=" search" type="text" name="q" placeholder="Search Encyclopedia" autocomplete="off">
-            </form>
-            <div>
-                <a href="{% url 'encyclopedia:index' %}">Home</a>
-            </div>
-            <div>
-                <a href="{% url 'encyclopedia:create' %}">Create New Page</a>
-            </div>
-            <div>
-                <a href="{% url 'encyclopedia:randompage' %}">Random Page</a>
-            </div>
-            {% block nav %}
-            {% endblock %}
-        </div>
-        <div class="main col-lg-10 col-md-9">
-            {% block body %}
-            {% endblock %}
-        </div>
+<body class="d-flex flex-md-row flex-column">
+    <nav class="sidebar p-4">
+        <h2 class="text-center">Wiki</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <form action="{% url 'encyclopedia:index' %}" method="POST">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <input id="search" type="search" name="q" class="form-control" placeholder="Search Encyclopedia"
+                            autocomplete="off">
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'encyclopedia:index' %}">Home</a>
+            </li>
+            <li class=" nav-item">
+                <a class="nav-link" href="{% url 'encyclopedia:create' %}">Create New Page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'encyclopedia:randompage' %}">Random Page</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="p-4 w-100 overflow-auto">
+        {% block body %}
+        {% endblock %}
     </div>
-
 </body>
 
 </html>
