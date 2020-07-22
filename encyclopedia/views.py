@@ -79,7 +79,8 @@ def randompage(request):
         return HttpResponseRedirect(reverse("encyclopedia:entry", args=(title,)))
     except IndexError:
         return render(request, "encyclopedia/error.html", {
-            "error": markdown(f"No page exists!\n[Create]({reverse('encyclopedia:create')})")
+            "error": f"""No page exists!
+                        <a class='alert-link' href='{reverse('encyclopedia:create')}'>Create</a>"""
         })
 
 
