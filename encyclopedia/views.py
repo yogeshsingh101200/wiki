@@ -22,11 +22,15 @@ def index(request):
                 return HttpResponseRedirect(reverse("encyclopedia:entry", args=(a_entry,)))
             if query in a_entry.lower():
                 similar.append(a_entry)
-        return render(request, "encyclopedia/index.html", {
-            "entries": similar
-        })
+
+        if len(similar) != 0:
+            return render(request, "encyclopedia/index.html", {
+                "tag": "Matching Results",
+                "entries": similar
+            })
 
     return render(request, "encyclopedia/index.html", {
+        "tag": "All Pages",
         "entries": util.list_entries()
     })
 
