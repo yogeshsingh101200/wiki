@@ -14,13 +14,13 @@ def index(request):
     """ Main route """
     if request.method == "POST":
         form_data = request.POST
-        query = form_data.get("q")
+        query = form_data.get("q").lower()
         entries = util.list_entries()
         similar = []
         for a_entry in entries:
-            if query == a_entry:
+            if query == a_entry.lower():
                 return HttpResponseRedirect(reverse("encyclopedia:entry", args=(a_entry,)))
-            if query in a_entry:
+            if query in a_entry.lower():
                 similar.append(a_entry)
         return render(request, "encyclopedia/index.html", {
             "entries": similar
