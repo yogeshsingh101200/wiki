@@ -1,2 +1,3 @@
 *.pyc
 entries/*.md
+db.sqlite3
