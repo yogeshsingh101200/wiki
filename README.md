@@ -9,6 +9,12 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+optionally, run
+```
+python manage.py migrate
+```
+to turn off warning about migrations.
+
 ## About
 - Main route lists all encyclopedia entries.
 - On visiting /wiki/TITLE, where TITLE is the title of an encyclopedia entry, renders contents of that encyclopedia entry in HTML.
