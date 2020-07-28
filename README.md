@@ -3,12 +3,9 @@
 Wikipedia-like online encyclopedia.
 
 ## To Run App locally
-first
 ```
 pip install -r requirements.txt
-```
-then
-```
+
 python manage.py runserver
 ```
 
