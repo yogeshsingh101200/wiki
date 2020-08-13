@@ -6,6 +6,8 @@ Wikipedia-like online encyclopedia.
 ```
 pip install -r requirements.txt
 
+export SECRET_KEY=<your_secret_key_here>
+
 python manage.py runserver
 ```
 
